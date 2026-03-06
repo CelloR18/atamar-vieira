@@ -635,6 +635,25 @@
               </div>
             </label>
           </div>
+          <div class="simulado-card" data-simulado="simulado6">
+            <input type="radio" id="simulado6" name="simuladoType" value="simulado6" class="simulado-radio">
+            <label for="simulado6" class="simulado-label">
+              <div class="simulado-icon">
+                <i class="fas fa-compass"></i>
+              </div>
+              <div class="simulado-info">
+                <h3>Simulado Completo #6</h3>
+                <p>40 questões para exercitar</p>
+                <div class="simulado-meta">
+                  <span><i class="fas fa-question-circle"></i> 40 questões</span>
+                  <span><i class="fas fa-clock"></i> 60 minutos</span>
+                </div>
+              </div>
+              <div class="selection-indicator">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </label>
+          </div>
         
         <button type="submit" class="btn btn-primary btn-block">
           <i class="fas fa-play-circle"></i> <span class="btn-text">Iniciar Simulado Completo #1</span>
@@ -773,11 +792,12 @@ document.getElementById('simuladoRedirectForm').addEventListener('submit', funct
       window.location.href = 'simulado3.html';
      } else if(selectedSimulado === 'simulado4') {
       window.location.href = 'simulado4.html';
-      
-       // Adicione a página para o novo simulado
     }
     else if(selectedSimulado === 'simulado5') {
         window.location.href = 'simulado5.html';
+      }
+      else if(selectedSimulado === 'simulado6') {
+        window.location.href = 'simulado6.html';
       }
   }, 1000);
 });
