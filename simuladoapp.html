@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#003366">
+  <meta name="description" content="Plataforma premium de simulados náuticos da Assessoria Fluvial Atamar Vieira">
+
+  <title>Simulados App | Assessoria Fluvial Atamar Vieira</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="./assets/android-chrome-192x192.png">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="simulados.css">
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+  <div class="loader-content">
+    <div class="loader-logo">
+      <i class="fas fa-anchor"></i>
+    </div>
+    <h1>Simulados App</h1>
+    <p>Assessoria Fluvial Atamar Vieira</p>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-overlay"></div>
+
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-anchor"></i>
+      <span>Simulados App</span>
+    </div>
+
+    <div class="nav-actions">
+      <button class="install-btn" id="installBtn">
+        <i class="fas fa-download"></i>
+        Instalar App
+      </button>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fas fa-shield-halved"></i>
+      Plataforma Premium de Simulados
+    </div>
+
+    <h1>
+      Prepare-se para a prova da Marinha
+      com uma experiência estilo aplicativo
+    </h1>
+
+    <p>
+      Plataforma moderna, rápida e responsiva para você estudar em qualquer dispositivo.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#simulados" class="btn btn-primary">
+        <i class="fas fa-play-circle"></i>
+        Começar Agora
+      </a>
+
+      <button class="btn btn-secondary" id="installBtnHero">
+        <i class="fas fa-mobile-screen-button"></i>
+        Instalar no Celular
+      </button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <h3>+10</h3>
+        <span>Simulados</span>
+      </div>
+
+      <div class="stat-card">
+        <h3>100%</h3>
+        <span>Responsivo</span>
+      </div>
+
+      <div class="stat-card">
+        <h3>24h</h3>
+        <span>Acesso Livre</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+
+    <div class="section-header">
+      <h2>Experiência Premium</h2>
+      <p>Desenvolvido para oferecer praticidade e desempenho máximo</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+
+        <h3>Estilo Aplicativo</h3>
+        <p>Interface moderna semelhante a apps profissionais.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-wifi"></i>
+        </div>
+
+        <h3>Funcionamento Offline</h3>
+        <p>Abra o app rapidamente mesmo sem internet.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-laptop"></i>
+        </div>
+
+        <h3>PC + Mobile</h3>
+        <p>Compatível com celular, tablet e computador.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+
+        <h3>Alta Performance</h3>
+        <p>Carregamento rápido e navegação fluida.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<section class="simulados-section" id="simulados">
+  <div class="container">
+
+    <div class="section-header">
+      <h2>Escolha seu Simulado</h2>
+      <p>Selecione qualquer simulado abaixo para iniciar</p>
+    </div>
+
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Pesquisar simulados...">
+    </div>
+
+    <div class="simulados-grid" id="simuladosGrid">
+
+      <div class="simulado-card" data-name="Simulado 1">
+        <div class="card-top">
+          <div class="simulado-icon">
+            <i class="fas fa-ship"></i>
+          </div>
+
+          <div class="card-badge">ONLINE</div>
+        </div>
+
+        <h3>Simulado #1</h3>
+
+        <div class="card-info">
+          <span><i class="fas fa-question-circle"></i> 40 questões</span>
+          <span><i class="fas fa-clock"></i> 60 min</span>
+        </div>
+
+        <a href="simulado1.html" class="btn-card">
+          Iniciar Simulado
+        </a>
+      </div>
+
+      <div class="simulado-card" data-name="Simulado 2">
+        <div class="card-top">
+          <div class="simulado-icon">
+            <i class="fas fa-anchor"></i>
+          </div>
+
+          <div class="card-badge">ONLINE</div>
+        </div>
+
+        <h3>Simulado #2</h3>
+
+        <div class="card-info">
+          <span><i class="fas fa-question-circle"></i> 40 questões</span>
+          <span><i class="fas fa-clock"></i> 60 min</span>
+        </div>
+
+        <a href="simulado2.html" class="btn-card">
+          Iniciar Simulado
+        </a>
+      </div>
+
+      <div class="simulado-card" data-name="Simulado 3">
+        <div class="card-top">
+          <div class="simulado-icon">
+            <i class="fas fa-compass"></i>
+          </div>
+
+          <div class="card-badge">ONLINE</div>
+        </div>
+
+        <h3>Simulado #3</h3>
+
+        <div class="card-info">
+          <span><i class="fas fa-question-circle"></i> 40 questões</span>
+          <span><i class="fas fa-clock"></i> 60 min</span>
+        </div>
+
+        <a href="simulado3.html" class="btn-card">
+          Iniciar Simulado
+        </a>
+      </div>
+
+      <div class="simulado-card" data-name="Simulado 4">
+        <div class="card-top">
+          <div class="simulado-icon">
+            <i class="fas fa-water"></i>
+          </div>
+
+          <div class="card-badge">ONLINE</div>
+        </div>
+
+        <h3>Simulado #4</h3>
+
+        <div class="card-info">
+          <span><i class="fas fa-question-circle"></i> 40 questões</span>
+          <span><i class="fas fa-clock"></i> 60 min</span>
+        </div>
+
+        <a href="simulado4.html" class="btn-card">
+          Iniciar Simulado
+        </a>
+      </div>
+
+      <div class="simulado-card" data-name="Simulado 5">
+        <div class="card-top">
+          <div class="simulado-icon">
+            <i class="fas fa-map"></i>
+          </div>
+
+          <div class="card-badge">ONLINE</div>
+        </div>
+
+        <h3>Simulado #5</h3>
+
+        <div class="card-info">
+          <span><i class="fas fa-question-circle"></i> 40 questões</span>
+          <span><i class="fas fa-clock"></i> 60 min</span>
+        </div>
+
+        <a href="simulado5.html" class="btn-card">
+          Iniciar Simulado
+        </a>
+      </div>
+
+      <div class="simulado-card" data-name="Simulado 6">
+        <div class="card-top">
+          <div class="simulado-icon">
+            <i class="fas fa-life-ring"></i>
+          </div>
+
+          <div class="card-badge">ONLINE</div>
+        </div>
+
+        <h3>Simulado #6</h3>
+
+        <div class="card-info">
+          <span><i class="fas fa-question-circle"></i> 40 questões</span>
+          <span><i class="fas fa-clock"></i> 60 min</span>
+        </div>
+
+        <a href="simulado6.html" class="btn-card">
+          Iniciar Simulado
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div>
+        <h3>Assessoria Fluvial Atamar Vieira</h3>
+        <p>Plataforma premium de simulados náuticos.</p>
+      </div>
+
+      <a href="https://wa.me/5518997201211" class="footer-whatsapp">
+        <i class="fab fa-whatsapp"></i>
+        Atendimento via WhatsApp
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="simulados.js"></script>
+</body>
+</html>
+
