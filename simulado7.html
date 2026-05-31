@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Arrais Amador | 40 Questões - Navegação e Segurança</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #003366, #1a4d8c);
+            padding: 3rem 0 2.5rem;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Simulado Container */
+        .simulado-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .progress-container {
+            background: rgba(0, 51, 102, 0.15);
+            border-radius: 50px;
+            height: 12px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #003366, #ffcc00);
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 50px;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.12);
+            border: 1px solid rgba(0, 51, 102, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(0, 51, 102, 0.15);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #003366, #1a4d8c);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,51,102,0.3);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #1a2a3a;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .options-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 1.2rem;
+            background: rgba(0, 51, 102, 0.03);
+            border: 1px solid rgba(0, 51, 102, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            gap: 1rem;
+        }
+
+        .option-label:hover {
+            background: rgba(0, 51, 102, 0.08);
+            border-color: #003366;
+            transform: translateX(5px);
+        }
+
+        .option-input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #003366;
+            flex-shrink: 0;
+        }
+
+        .option-letter {
+            font-weight: 700;
+            color: #003366;
+            min-width: 28px;
+            font-size: 1rem;
+        }
+
+        .feedback {
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .correct {
+            background: linear-gradient(135deg, rgba(40,167,69,0.1), rgba(40,167,69,0.05));
+            border-left: 4px solid #28a745;
+        }
+
+        .incorrect {
+            background: linear-gradient(135deg, rgba(220,53,69,0.1), rgba(220,53,69,0.05));
+            border-left: 4px solid #dc3545;
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feedback-text {
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .next-btn, .end-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #003366, #1a4d8c);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,51,102,0.3);
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,51,102,0.4);
+        }
+
+        .end-btn {
+            background: linear-gradient(135deg, #dc3545, #b02a37);
+            color: white;
+            box-shadow: 0 4px 12px rgba(220,53,69,0.3);
+        }
+
+        .end-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220,53,69,0.4);
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 45px rgba(0, 51, 102, 0.15);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+
+        .score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #003366, #ffcc00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 1rem 0;
+        }
+
+        .result-message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            color: #2c3e50;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #ffcc00, #e6b800);
+            color: #003366;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,204,0,0.4);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .simulado-container {
+                padding: 0 0.8rem;
+            }
+            .question-card {
+                padding: 1.2rem;
+            }
+            .question-text {
+                font-size: 1rem;
+            }
+            .next-btn, .end-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Simulado Arrais Amador</h1>
+                <p class="hero-subtitle">40 questões sobre navegação, segurança e legislação</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="simulado-container">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div id="resultsContainer" class="results-container">
+                <div class="results-title"><i class="fas fa-anchor"></i> Resultado Final</div>
+                <div class="score" id="finalScore">0/40</div>
+                <div class="result-message" id="resultMessage"></div>
+                <button class="restart-btn" id="restartBtn"><i class="fas fa-sync-alt"></i> Refazer Simulado</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Questões 1 a 40 com gabarito completo
+        const questions = [
+            // Questões 1-20 (originais)
+            {
+                text: "As luzes de bordos, de mastro e de alcançados são:",
+                options: ["Circulares brancas", "Circulares", "Setorizadas para melhor identificar o movimento da embarcação, à noite", "Circulares encarnadas", "De acordo com o tipo de embarcação"],
+                correct: "C"
+            },
+            {
+                text: "No rio onde duas lanchas de esporte e recreio navegam em rumos opostos, como deverá ser a manobra e quem tem preferência?",
+                options: [
+                    "A que vem contra a corrente deverá se posicionar na margem de bombordo mais próxima, e a outra no meio do rio, não havendo preferência de manobra entre elas.",
+                    "A que vem contra a corrente deverá se posicionar no meio do rio e a outra em qualquer margem, sendo que a que vem contra a corrente tem preferência.",
+                    "A que vem contra a corrente deverá se posicionar no meio do rio e a outra na sua margem direita, sendo que a que vem contra a corrente tem a preferência.",
+                    "A que vem a favor da corrente deverá se posicionar no meio do rio e a outra na sua margem de boreste, sendo que a que vem a favor da corrente tem preferência.",
+                    "A que vem a favor da corrente deverá se posicionar no meio do rio e a outra na sua margem direita, sendo que a que vem a favor da corrente tem preferência."
+                ],
+                correct: "D"
+            },
+            {
+                text: "O que vem a ser velocidade de segurança e o que devemos fazer quando cruzamos com outras embarcações atracadas ou fundeadas ou mesmo localidades às margens dos rios e canais?",
+                options: [
+                    "É a velocidade que possibilita uma ação apropriada e eficaz de evitar um abalroamento e de parar a embarcação a uma distância segura. Devemos diminuir a velocidade.",
+                    "É a velocidade ideal de cruzeiro da embarcação para condições que exijam maiores cuidados na navegação, como baixa visibilidade. Devemos diminuir a velocidade.",
+                    "É a velocidade máxima permitida em uma determinada região de tráfego. Devemos aumentar a velocidade para passar mais rapidamente por esses locais.",
+                    "É a velocidade máxima permitida em uma determinada região de tráfego. Devemos manter a velocidade para evitar variações da corrente de esteira da embarcação.",
+                    "É a velocidade mínima para se parar a embarcação com segurança. Devemos diminuir a velocidade."
+                ],
+                correct: "A"
+            },
+            {
+                text: "O sinal lateral de canal que fica a boreste de quem entra no porto tem a cor:",
+                options: ["Verde", "Branca", "Preta e branca", "Amarela", "Encarnada"],
+                correct: "E"
+            },
+            {
+                text: "A sinalização de águas seguras significa:",
+                options: ["Águas policiadas", "Águas navegáveis", "Águas limítrofes", "Águas rasas", "Águas sem circulação"],
+                correct: "B"
+            },
+            {
+                text: "Num pilar de uma ponte sobre um rio navegável, observou-se um triângulo vermelho, isto significa que o:",
+                options: ["Tráfego está proibido", "Tráfego está à direita de quem desce e à esquerda de quem sobe o rio", "Tráfego é permitido com sentido único", "Tráfego está sujeito a interrupção no período de seca", "Tráfego está à esquerda de quem desce e à direita de quem sobe o rio"],
+                correct: "B"
+            },
+            {
+                text: "O que é amarra?",
+                options: [
+                    "É uma corrente ou cabo que serve para prender a Âncora ao mastro",
+                    "É uma corrente ou cabo que serve para prender a âncora ao porão da amarra",
+                    "É uma corrente que serve para prender a âncora ao anete",
+                    "É uma corrente ou cabo que serve para prender a âncora ao escovém da embarcação",
+                    "É uma corrente ou cabo que serve para prender a âncora ao paiol da amarra ou ao convés da embarcação"
+                ],
+                correct: "E"
+            },
+            {
+                text: "Para se fundear com corrente e vento, deve-se:",
+                options: ["Sempre aproar, entre vento e corrente, ao que estiver mais fraco", "Fundear, independente do efeito do vento ou da corrente", "Sempre empopar ao que estiver mais forte", "Aproar ao vento ou à corrente, sempre a que estiver mais forte", "Aproar à corrente, independente do vento"],
+                correct: "D"
+            },
+            {
+                text: "Extintores portáteis são:",
+                options: ["Equipamentos de apoio ao controle de avarias", "Equipamentos que retiram o combustível da reação, para apagar o fogo", "Equipamentos de extinção de incêndios, somente da classe A", "Equipamentos que utilizam o comburente para apagar o fogo", "Equipamentos de combate a incêndio, que utilizam os agentes extintores para apagar o fogo"],
+                correct: "E"
+            },
+            {
+                text: "O incêndio da classe C é o:",
+                options: ["Que ocorre na presença de agente extintor", "Que ocorre em equipamentos elétricos", "Que ocorre em líquidos inflamáveis", "Que ocorre em metais inflamáveis", "Que ocorre em materiais sólidos inflamáveis"],
+                correct: "B"
+            },
+            {
+                text: "O que vem a ser combustível?",
+                options: ["O elemento que possui o oxigênio necessário para a queima", "O elemento que oferece risco de explodir", "O elemento que reage com outros, para evitar a combustão", "O elemento natural, que gera altas temperaturas, ao entrar em contato com o ar atmosférico", "O elemento da natureza capaz de se queimar na presença de oxigênio e da temperatura de ignição"],
+                correct: "E"
+            },
+            {
+                text: "Nos casos de ingestão de substâncias corrosivas, cáusticos em geral e derivados de petróleo, diluir ou neutralizar essas substancias pela ingestão de:",
+                options: ["Azeite", "Xarope de ipeca", "Água ou leite", "Chá preto ou café", "Xarope de boldo"],
+                correct: "C"
+            },
+            {
+                text: "As principais complicações de uma ferida são:",
+                options: ["Bolhas e queimaduras", "Hemorragia e infecção", "Infecção e queimadura", "Bolhas e hemorragia", "Hemorragia e febre"],
+                correct: "B"
+            },
+            {
+                text: "Para que serve o colete salva-vidas que deverá ser guardado a bordo na quantidade exigida pela Legislação?",
+                options: [
+                    "Para ser utilizado como meio de flutuação, quando o passageiro desejar pular na água para nadar um pouco.",
+                    "Para ser utilizado, como material de controle de avarias, no caso de acidentes com o casco da embarcação",
+                    "Para ser vestido, no caso de incêndio a bordo, como roupa de proteção",
+                    "Para ser vestido em caso de práticas desportivas náuticas",
+                    "Para ser vestido, no caso de ter que se abandonar a embarcação, para que o náufrago flutue com ele"
+                ],
+                correct: "E"
+            },
+            {
+                text: "A balsa salva-vidas rígida serve para ser utilizada:",
+                options: ["Para apoio à manutenção do casco da embarcação", "Para abandonar a embarcação em caso de emergência", "Para lazer em proximidades de praias", "No caso de incêndio a bordo", "No caso de emergência a bordo"],
+                correct: "B"
+            },
+            {
+                text: "Quando alguém de sua embarcação cair no mar você deve:",
+                options: ["Telefonar para os bombeiros", "Dar 3 apitos curtos", "Içar a bandeira alfa", "Jogar uma boia salva-vidas, mantendo a pessoa no visual e mandar avisar a quem estiver na manobra", "Dar 2 apitos longos"],
+                correct: "D"
+            },
+            {
+                text: "No caso de afogamento proceder do seguinte modo:",
+                options: ["Deite o afogado de lado e faça respiração boca a boca", "Deite o afogado de lado e faça-o vomitar, depois aqueça-o com um cobertor", "Deite o afogado de barriga para cima, para ele poder respirar melhor e nunca lhe dê bebidas quentes", "Deite o afogado de lado para vomitar a água que bebeu, tire a roupa molhada e aqueça-o", "Deite afogado de barriga para cima para ele poder respirar melhor e lhe dê bebidas quentes"],
+                correct: "D"
+            },
+            {
+                text: "A embarcação apreendida deve ser recolhida a local determinado pela:",
+                options: ["Polícia federal", "Polícia Marítima", "Representante da Autoridade Marítima", "Prefeitura local", "Lei estadual"],
+                correct: "C"
+            },
+            {
+                text: "A distância mínima de fundeio de qualquer embarcação para uma plataforma de petróleo é:",
+                options: ["500 metros", "100 metros", "400 metros", "200 metros", "300 metros"],
+                correct: "A"
+            },
+            {
+                text: "Além de outros fatores, a sobrevivência do náufrago depende do período de permanência em função da temperatura da água do mar. No que diz respeito a temperatura ambiente (temperatura do ar), seus efeitos sobre o pessoal estão intimamente ligados:",
+                options: ["À pressão atmosférica", "Aos sistemas frontais", "As nuvens", "As correntes marinhas", "A velocidade do vento"],
+                correct: "E"
+            },
+            // Questões 21-40 (novas)
+            {
+                text: "As âncoras flutuantes das balsas devem ser mantidas na água, visando reduzir:",
+                options: ["O vento", "A velocidade de deriva", "A altura das ondas", "A possibilidade de emborcamento", "O risco de tubarões"],
+                correct: "B"
+            },
+            {
+                text: "A distância vertical da superfície da água até o pavimento principal (normalmente o convés) medida em qualquer ponto do comprimento do barco no costado é conhecido como:",
+                options: ["Meia borda", "Obras vivas", "Verdugo", "Borda livre", "Borda falsa"],
+                correct: "D"
+            },
+            {
+                text: "A quantidade e tipo de extintores a bordo de um barco de esporte e laser são estabelecidos por uma Norma da (do):",
+                options: ["Serviço de Socorro e Salvamento no mar", "Corpo de Bombeiros do Estado", "Diretoria de Portos e Costas", "Capitania dos Portos da região", "Agência Nacional de Águas"],
+                correct: "C"
+            },
+            {
+                text: "Além do estancamento e torniquete, também podemos tentar conter uma hemorragia numa perna:",
+                options: ["Colocando água quente na hemorragia", "Fazendo duplo torniquete", "Levantando a perna com hemorragia mais alto que o resto do corpo", "Ministrando sedativos para o paciente", "Ministrando ao paciente remédios anticoagulantes"],
+                correct: "C"
+            },
+            {
+                text: "Com relação ao comportamento e atuação do leme em uma embarcação é correto afirmar que:",
+                options: ["Quando maior o ângulo do leme, mais lenta será a guinada", "O ângulo do leme não interfere na velocidade da guinada", "Quando menor o ângulo do leme, maior será a inclinação (banda)", "Quanto menor o ângulo do leme, mais rápida será a guinada", "Quanto maior o ângulo de leme, mais rápida será a guinada"],
+                correct: "E"
+            },
+            {
+                text: "De acordo com o Regulamento Internacional Para Evitar Abalroamento no Mar (RIPEAM), em uma curva acentuada de um rio, quando não visibilidade além da curva, há a necessidade de ser(em) soado(s):",
+                options: ["Dois apitos longos antes da curva", "Cinco ou mais apitos longos antes da curva", "Quatro apitos longos antes da curva", "Três apitos longos antes da curva", "Um apito longo antes da curva"],
+                correct: "E"
+            },
+            {
+                text: "De acordo com o Regulamento Internacional Para Evitar Abalroamento no Mar (RIPEAM), em uma situação de risco de abalroamento constatou-se que um dos barcos tem preferência. Sendo assim, o barco que tem preferência deverá em princípio:",
+                options: ["Guinar para boreste ou bombordo e desviar", "Manter seu rumo e diminuir a velocidade", "Descartar a responsabilidade de abalroamento", "Guinar para boreste para desviar do outro", "Manter seu rumo e velocidade"],
+                correct: "E"
+            },
+            {
+                text: "De acordo com o Regulamento Internacional Para Evitar Abalroamento no Mar (RIPEAM), estando fora de um canal estreito e em segurança, qual é o bordo que uma embarcação pode utilizar para se fazer uma ultrapassagem de outra embarcação?",
+                options: ["Somente bombordo", "Somente boreste", "Não deverá ultrapassar sem permissão", "Qualquer bordo", "Não poderá ultrapassar de qualquer maneira"],
+                correct: "D"
+            },
+            {
+                text: "De acordo com o Regulamento Internacional Para Evitar Abalroamento no Mar (RIPEAM), quando fundeado à noite com minha lancha de nove metros de comprimento, além de exibir uma luz circular branca onde melhor possa ser vista, posso também nesta situação:",
+                options: ["Acender todas as luzes do mastro", "Acender a luz encarnada a bombordo e verde a boreste", "Acender somente as luzes necessárias para pesca amadora", "Acender qualquer luz de navegação pois meu barco estará parado", "Iluminar todo convés principal"],
+                correct: "E"
+            },
+            {
+                text: "De acordo com o Regulamento Internacional Para Evitar Abalroamento no Mar (RIPEAM), um navio que, durante o dia, está com manobra restrita devido ao seu calado deverá içar que marcas no mastro?",
+                options: ["Um cilindro preto", "Duas esferas pretas", "Uma esfera azul", "Uma esfera preta", "Um cone azul"],
+                correct: "A"
+            },
+            {
+                text: "Dentre as alternativas abaixo, o único que precisa estar permanentemente com o colete salva-vidas vestido é:",
+                options: ["Condutor de moto-aquática", "Passageiro de uma embarcação de médio porte", "Proeiro de qualquer embarcação de grande porte", "Cozinheiro da embarcação", "Comandante da lancha"],
+                correct: "A"
+            },
+            {
+                text: "No tocante a um incêndio a bordo e a existência de vento no momento do incêndio, é correto afirmar que:",
+                options: ["O vento apaga o fogo", "O vento aumenta a possibilidade de um início de incêndio", "O vento propaga o fogo", "O vento não influencia o fogo", "O vento auxilia os tripulantes a extinguir o incêndio"],
+                correct: "C"
+            },
+            {
+                text: "Por ocasião da transferência de propriedade de um barco já inscrito, o novo proprietário deverá:",
+                options: ["Trocar o nome do barco", "Assinar novo Termo de Responsabilidade", "Apresentar nota fiscal do casco e do motor", "Comprovar a propriedade com testemunhas e certidões emitidas em cartório", "Renovar o Bilhete de Seguro (DPEM), mesmo que não esteja vencido"],
+                correct: "B"
+            },
+            {
+                text: "Qual a característica de um incêndio classe B?",
+                options: ["Ocorrem em combustíveis sólidos", "Ocorrem em circuitos elétricos", "Ocorrem em metais", "Ocorrem em combustíveis líquidos", "Ocorrem em papel e madeira"],
+                correct: "D"
+            },
+            {
+                text: "Qual é (quais são) o(os) símbolo(s) da categoria de Arrais Amador, que poderia(ao) ser(em) bordados(s) ou pintado(s) nas lapelas, camisetas ou bonés?",
+                options: ["Quatro estrelas douradas", "Duas estrelas douradas", "Três estrelas douradas", "Uma estrela dourada", "Uma âncora dourada"],
+                correct: "E"
+            },
+            {
+                text: "Se um barco está abicado, ele está com:",
+                options: ["Muito peso na popa e pouco peso na proa", "Muito peso na proa e pouco peso na popa", "Muito peso a meia nau e pouco peso na proa e popa", "Muito peso na quilha e leve na proa", "Muito peso na proa e popa e pouco peso a meia nau"],
+                correct: "B"
+            },
+            {
+                text: "Se um barco está derrabado ele está com:",
+                options: ["Muito peso na quilha e leve na popa", "Muito peso a meia nau e pouco peso na proa e popa", "Muito peso na popa e pouco peso na proa", "Muito peso na proa e popa e pouco peso a meia nau", "Muito peso na proa e pouco peso na popa"],
+                correct: "C"
+            },
+            {
+                text: "Um colete salva-vidas da classe III se destina prioritariamente para a navegação em área:",
+                options: ["Desabrigadas", "Oceânica", "Interior", "Costeira", "De mar aberto"],
+                correct: "C"
+            },
+            {
+                text: "Uma boa prática preventiva para evitar enjoos durante um passeio é:",
+                options: [
+                    "Dormir pouco na noite anterior e não comer antes do passeio",
+                    "Tomar remédios antiácidos antes e tomar remédios antienjoo depois de iniciar o passeio",
+                    "Tomar bebidas alcoólicas e comida gordurosa para forrar o estomago",
+                    "Evitar beber água e sucos de frutas ácidas, que provocam o enjoo",
+                    "Comer e beber moderadamente e tomar remédios antienjoo antes de iniciar o passeio"
+                ],
+                correct: "E"
+            },
+            {
+                text: "Considerando as características abaixo descritas em itálico, assinale a alternativa que corresponde ao sinal náutico: É um sinal cego ou luminoso. É dotado de marca de tope, duas esferas pretas, uma sobre a outra e possui cor preta, com uma ou mais faixas horizontais encarnadas (vermelhas)",
+                options: ["Sinal Especial", "Sinal Cardinal", "Sinal Lateral", "Sinal de Perigo Isolado", "Sinais de Águas Seguras"],
+                correct: "D"
+            }
+        ];
+
+        const totalQuestions = questions.length;
+        let currentQuestion = 1;
+        let score = 0;
+        let questionsAnswered = 0;
+        let userAnswers = {};
+        let userCorrect = {};
+
+        // Renderiza todas as questões dinamicamente
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            questions.forEach((q, idx) => {
+                const questionNumber = idx + 1;
+                const optionsLetters = ['A', 'B', 'C', 'D', 'E'];
+                
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `question${questionNumber}`;
+                if (questionNumber !== 1) card.style.display = 'none';
+                
+                card.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${questionNumber}</div>
+                        <div class="question-text">${q.text}</div>
+                    </div>
+                    <ul class="options-list">
+                        ${q.options.map((opt, optIdx) => `
+                            <li class="option-item">
+                                <label class="option-label">
+                                    <input type="radio" name="q${questionNumber}" value="${optionsLetters[optIdx]}" class="option-input">
+                                    <span class="option-letter">${optionsLetters[optIdx]})</span>
+                                    <span>${opt}</span>
+                                </label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div class="feedback" id="feedback${questionNumber}">
+                        <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="button-container">
+                        <button class="next-btn" data-q="${questionNumber}">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
+                        <button class="end-btn" data-q="${questionNumber}"><i class="fas fa-flag-checkered"></i> Encerrar Simulado</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            attachEvents();
+        }
+
+        // Anexa eventos aos botões
+        function attachEvents() {
+            document.querySelectorAll('.next-btn').forEach(btn => {
+                btn.removeEventListener('click', handleNextClick);
+                btn.addEventListener('click', handleNextClick);
+            });
+            
+            document.querySelectorAll('.end-btn').forEach(btn => {
+                btn.removeEventListener('click', handleEndClick);
+                btn.addEventListener('click', handleEndClick);
+            });
+        }
+
+        function handleNextClick(e) {
+            const btn = e.currentTarget;
+            const qNum = parseInt(btn.getAttribute('data-q'));
+            checkAnswer(qNum);
+        }
+
+        function handleEndClick() {
+            forceShowResults();
+        }
+
+        function checkAnswer(questionNumber) {
+            const selectedRadio = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+            const feedback = document.getElementById(`feedback${questionNumber}`);
+            const correctLetter = questions[questionNumber - 1].correct;
+            
+            if (!selectedRadio) {
+                alert("Por favor, selecione uma resposta antes de continuar.");
+                return;
+            }
+            
+            const selectedLetter = selectedRadio.value;
+            const isCorrect = (selectedLetter === correctLetter);
+            
+            if (!userAnswers[questionNumber]) {
+                userAnswers[questionNumber] = selectedLetter;
+                questionsAnswered++;
+                if (isCorrect) {
+                    score++;
+                    userCorrect[questionNumber] = true;
+                } else {
+                    userCorrect[questionNumber] = false;
+                }
+                updateProgress();
+            }
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.querySelector('.feedback-title').innerHTML = '<i class="fas fa-check-circle"></i> <span>Resposta Correta</span>';
+                feedback.querySelector('.feedback-text').innerHTML = `Alternativa <strong>${selectedLetter}</strong> está correta!`;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.querySelector('.feedback-title').innerHTML = '<i class="fas fa-times-circle"></i> <span>Resposta Incorreta</span>';
+                feedback.querySelector('.feedback-text').innerHTML = `Alternativa correta: <strong>${correctLetter}</strong>.`;
+            }
+            feedback.style.display = "block";
+            
+            const nextBtn = document.querySelector(`#question${questionNumber} .next-btn`);
+            if (questionNumber === totalQuestions) {
+                nextBtn.innerHTML = 'Ver Resultados <i class="fas fa-chart-line"></i>';
+                const newNextBtn = nextBtn.cloneNode(true);
+                nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+                newNextBtn.addEventListener('click', function() {
+                    showResults();
+                });
+            } else {
+                nextBtn.innerHTML = 'Próxima Questão <i class="fas fa-arrow-right"></i>';
+                const newNextBtn = nextBtn.cloneNode(true);
+                nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+                newNextBtn.addEventListener('click', function() {
+                    goToNextQuestion(questionNumber);
+                });
+            }
+        }
+        
+        function goToNextQuestion(currentNum) {
+            document.getElementById(`question${currentNum}`).style.display = 'none';
+            const nextNum = currentNum + 1;
+            if (nextNum <= totalQuestions) {
+                document.getElementById(`question${nextNum}`).style.display = 'block';
+                const nextBtn = document.querySelector(`#question${nextNum} .next-btn`);
+                if (nextBtn && !userAnswers[nextNum]) {
+                    const newNextBtn = nextBtn.cloneNode(true);
+                    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+                    newNextBtn.addEventListener('click', function() {
+                        checkAnswer(nextNum);
+                    });
+                }
+            }
+        }
+        
+        function updateProgress() {
+            const percent = (questionsAnswered / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+        }
+        
+        function showResults() {
+            for (let i = 1; i <= totalQuestions; i++) {
+                const card = document.getElementById(`question${i}`);
+                if (card) card.style.display = 'none';
+            }
+            
+            const resultsContainer = document.getElementById('resultsContainer');
+            const questionsContainer = document.getElementById('questionsContainer');
+            questionsContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            const percent = Math.round((score / totalQuestions) * 100);
+            document.getElementById('finalScore').innerHTML = `${score}/${totalQuestions}`;
+            
+            let message = `Você respondeu ${questionsAnswered} de ${totalQuestions} questões e acertou ${score}.<br>`;
+            message += `Pontuação: ${score}/${totalQuestions} (${percent}%)<br><br>`;
+            
+            if (percent >= 80) {
+                message += "🏆 Excelente! Você está muito bem preparado para o exame de Arrais Amador.";
+            } else if (percent >= 70) {
+                message += "👍 Bom desempenho! Revise alguns tópicos e estará pronto.";
+            } else if (percent >= 50) {
+                message += "📚 Desempenho regular. Recomendamos estudar mais antes do exame oficial.";
+            } else {
+                message += "⚠️ Você precisa estudar mais. Revise as regras de navegação e segurança.";
+            }
+            
+            document.getElementById('resultMessage').innerHTML = message;
+        }
+        
+        function forceShowResults() {
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && !userAnswers[i]) {
+                    userAnswers[i] = selected.value;
+                    questionsAnswered++;
+                    const isCorrect = (selected.value === questions[i-1].correct);
+                    userCorrect[i] = isCorrect;
+                    if (isCorrect) score++;
+                    
+                    const feedback = document.getElementById(`feedback${i}`);
+                    if (feedback && feedback.style.display !== 'block') {
+                        if (isCorrect) {
+                            feedback.className = "feedback correct";
+                            feedback.querySelector('.feedback-title').innerHTML = '<i class="fas fa-check-circle"></i> <span>Resposta Correta</span>';
+                            feedback.querySelector('.feedback-text').innerHTML = `Alternativa <strong>${selected.value}</strong> está correta!`;
+                        } else {
+                            feedback.className = "feedback incorrect";
+                            feedback.querySelector('.feedback-title').innerHTML = '<i class="fas fa-times-circle"></i> <span>Resposta Incorreta</span>';
+                            feedback.querySelector('.feedback-text').innerHTML = `Alternativa correta: <strong>${questions[i-1].correct}</strong>.`;
+                        }
+                        feedback.style.display = "block";
+                    }
+                }
+            }
+            updateProgress();
+            showResults();
+        }
+        
+        function restartSimulado() {
+            currentQuestion = 1;
+            score = 0;
+            questionsAnswered = 0;
+            userAnswers = {};
+            userCorrect = {};
+            
+            const questionsContainer = document.getElementById('questionsContainer');
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            questionsContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            renderQuestions();
+            document.getElementById('progressBar').style.width = '0%';
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'restartBtn' || e.target.parentElement?.id === 'restartBtn') {
+                restartSimulado();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestions();
+        });
+    </script>
+</body>
+
+</html>
