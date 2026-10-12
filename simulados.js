@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // CONFIGURAÇÃO DA SENHA
   // ==========================================
 
-  const SENHA_CORRETA = "TibiriçaAlunos220026";
+  const SENHA_CORRETA = "alunos181293#";
   const CHAVE_ACESSO = "acessoSimuladosLiberado";
 
   // ==========================================
