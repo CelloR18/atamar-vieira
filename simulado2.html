@@ -10,336 +10,410 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Estilos Premium para o Simulado */
+    /* Variáveis Globais de Cores e Temas */
+    :root {
+        --primary-color: #003366;
+        --secondary-color: #ffcc00;
+        --dark-color: #001f3f;
+        --text-color: #333333;
+        --text-light: #666666;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --card-bg: #ffffff;
+        --border-color: rgba(0, 51, 102, 0.1);
+    }
+
+    /* Estilos Principais do Simulado */
+    .simulado-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+
+    .simulado-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .simulado-title {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+
+    .simulado-subtitle {
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .progress-container {
+        background-color: rgba(0, 51, 102, 0.1);
+        border-radius: 50px;
+        height: 10px;
+        margin-bottom: 2.5rem;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        transition: width 0.5s ease;
+        width: 0%;
+    }
+
+    .question-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+        border: 1px solid var(--border-color);
+        transform: translateY(0);
+        transition: all 0.3s ease;
+    }
+
+    .question-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+    }
+
+    .question-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .question-number {
+        background: var(--primary-color);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .options-list {
+        list-style: none;
+        margin: 1.5rem 0;
+        padding: 0;
+    }
+
+    .option-item {
+        margin-bottom: 0.8rem;
+    }
+
+    .option-label {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: rgba(0, 51, 102, 0.03);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        gap: 1rem;
+        color: var(--text-color);
+    }
+
+    .option-label:hover {
+        background: rgba(0, 51, 102, 0.05);
+        border-color: var(--primary-color);
+    }
+
+    .option-item input[type="radio"]:checked + .option-label {
+        background: rgba(0, 51, 102, 0.08);
+        border-color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .option-input {
+        margin: 0;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .option-letter {
+        font-weight: 700;
+        color: var(--primary-color);
+        width: 20px;
+        flex-shrink: 0;
+    }
+
+    .feedback {
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-top: 1.5rem;
+        display: none;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .correct {
+        background: rgba(40, 167, 69, 0.1);
+        border-left: 4px solid var(--success-color);
+        color: #155724;
+    }
+
+    .incorrect {
+        background: rgba(220, 53, 69, 0.1);
+        border-left: 4px solid var(--danger-color);
+        color: #721c24;
+    }
+
+    .feedback-title {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .feedback-title i {
+        margin-right: 0.5rem;
+    }
+
+    .feedback-text {
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .feedback-text strong {
+        color: inherit;
+        font-weight: 700;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .next-btn {
+        background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 51, 102, 0.2);
+    }
+
+    .next-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 51, 102, 0.3);
+    }
+
+    .next-btn i {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .next-btn:hover i {
+        transform: translateX(3px);
+    }
+
+    .end-btn {
+        background: linear-gradient(135deg, #dc3545, #a71d2a);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+    }
+
+    .end-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    }
+
+    .end-btn i {
+        margin-right: 0.5rem;
+    }
+
+    .results-container {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 3rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+        display: none;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .results-title {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .score {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin: 1.5rem 0;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .result-message {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        color: var(--text-color);
+    }
+
+    .restart-btn {
+        background: var(--secondary-color);
+        color: var(--dark-color);
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+    }
+
+    .restart-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 204, 0, 0.4);
+    }
+
+    .restart-btn i {
+        margin-right: 0.5rem;
+    }
+
+    .toggle-dark {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 0.75rem 1.25rem;
+        border-radius: 50px;
+        border: none;
+        background: var(--primary-color);
+        color: #ffffff;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-dark:hover {
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+        background-color: #121212;
+        color: #eeeeee;
+    }
+
+    body.dark-mode .question-card,
+    body.dark-mode .results-container {
+        background: #1e1e1e;
+        border-color: #333333;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-mode .question-text,
+    body.dark-mode .result-message {
+        color: #eeeeee;
+    }
+
+    body.dark-mode .option-label {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: #444444;
+        color: #dddddd;
+    }
+
+    body.dark-mode .option-item input[type="radio"]:checked + .option-label {
+        background: rgba(0, 102, 204, 0.25);
+        border-color: #3388ff;
+    }
+
+    body.dark-mode .option-letter {
+        color: var(--secondary-color);
+    }
+
+    body.dark-mode .progress-container {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode .correct {
+        background: rgba(40, 167, 69, 0.2);
+        color: #a3e9b4;
+    }
+
+    body.dark-mode .incorrect {
+        background: rgba(220, 53, 69, 0.2);
+        color: #f1aeb5;
+    }
+
+    body.dark-mode .toggle-dark {
+        background: #eeeeee;
+        color: #121212;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
         .simulado-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        .simulado-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .simulado-title {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .simulado-subtitle {
-            color: var(--text-light);
-            font-size: 1.1rem;
-        }
-
-        .progress-container {
-            background-color: rgba(0, 51, 102, 0.1);
-            border-radius: 50px;
-            height: 10px;
-            margin-bottom: 2.5rem;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.5s ease;
+            padding: 1rem;
         }
 
         .question-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
-            border: 1px solid rgba(0, 51, 102, 0.1);
-            transform: translateY(0);
-            transition: all 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
-        }
-
-        .question-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .question-number {
-            background: var(--primary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-
-        .question-text {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-
-        .options-list {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .option-item {
-            margin-bottom: 0.8rem;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            background: rgba(0, 51, 102, 0.03);
-            border: 1px solid rgba(0, 51, 102, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            gap: 1rem;
-        }
-
-        .option-label:hover {
-            background: rgba(0, 51, 102, 0.05);
-            border-color: var(--primary-color);
-        }
-
-        .option-input {
-            margin: 0;
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-        }
-
-        .option-letter {
-            font-weight: 700;
-            color: var(--primary-color);
-            width: 20px;
-            flex-shrink: 0;
-        }
-
-        .feedback {
             padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 1.5rem;
-            display: none;
-            animation: fadeIn 0.5s ease-out;
         }
 
-        .correct {
-            background: rgba(40, 167, 69, 0.1);
-            border-left: 4px solid var(--success-color);
+        .simulado-title {
+            font-size: 1.8rem;
         }
 
-        .incorrect {
-            background: rgba(220, 53, 69, 0.1);
-            border-left: 4px solid #dc3545;
-        }
-
-        .feedback-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .feedback-title i {
-            margin-right: 0.5rem;
-        }
-
-        .feedback-text {
-            line-height: 1.6;
-        }
-
-        .feedback-text strong {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        .next-btn {
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 51, 102, 0.2);
-        }
-
-        .next-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 51, 102, 0.3);
-        }
-
-        .next-btn i {
-            margin-left: 0.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .next-btn:hover i {
-            transform: translateX(3px);
-        }
-
+        .next-btn,
         .end-btn {
-            background: linear-gradient(135deg, #dc3545, #a71d2a);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
-            margin-left: 1rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            width: 100%;
+            justify-content: center;
         }
-
-        .end-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
-        }
-
-        .end-btn i {
-            margin-right: 0.5rem;
-        }
-
-        .results-container {
-            background: white;
-            border-radius: 16px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .results-title {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .score {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin: 1.5rem 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .result-message {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .restart-btn {
-            background: var(--secondary-color);
-            color: var(--dark-color);
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
-        }
-
-        .restart-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.4);
-        }
-
-        .restart-btn i {
-            margin-right: 0.5rem;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Dark Mode */
-        body.dark-mode .question-card,
-        body.dark-mode .results-container {
-            background: #1a1a1a;
-            border-color: #333;
-        }
-
-        body.dark-mode .question-text {
-            color: #eee;
-        }
-
-        body.dark-mode .option-label {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: #444;
-            color: #eee;
-        }
-
-        body.dark-mode .option-input:checked+.option-label {
-            background: rgba(0, 51, 102, 0.3);
-        }
-
-        body.dark-mode .progress-container {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        body.dark-mode .end-btn {
-            background: linear-gradient(135deg, #a71d2a, #6d131c);
-        }
-
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .simulado-container {
-                padding: 1rem;
-            }
-
-            .question-card {
-                padding: 1.5rem;
-            }
-
-            .simulado-title {
-                font-size: 1.8rem;
-            }
-
-            .next-btn,
-            .end-btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        ;
-    </style>
+    }
+</style>
 
 </head>
 
@@ -883,57 +957,55 @@
             </div>
 
             <!-- Questão 12 -->
-            <div class="question-card" id="question12">
+           <div class="question-card" id="question12">
                 <div class="question-header">
                     <div class="question-number">12</div>
-                    <div class="question-text">O extintor de água deve ser utilizado no combate a incêndios em:</div>
+                    <div class="question-text">O extintor de água pressurizada deve ser utilizado preferencialmente no combate a incêndios de classe:</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
                         <input type="radio" name="q12" id="q12a" class="option-input">
                         <label for="q12a" class="option-label">
-                            <span class="option-letter">A)</span>Equipamentos e redes elétricas.
+                            <span class="option-letter">A)</span> Classe C (equipamentos e redes elétricas energizadas)
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q12" id="q12b" class="option-input">
                         <label for="q12b" class="option-label">
-                            <span class="option-letter">B)</span> Líquidos inflamáveis.
+                            <span class="option-letter">B)</span> Classe B (líquidos inflamáveis)
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q12" id="q12c" class="option-input">
                         <label for="q12c" class="option-label">
-                            <span class="option-letter">C)</span> Materiais sólidos inflamáveis.
+                            <span class="option-letter">C)</span> Classe A (materiais sólidos fibrosos como madeira, tecido e papel)
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q12" id="q12d" class="option-input">
                         <label for="q12d" class="option-label">
-                            <span class="option-letter">D)</span> Paióis de tinta.
+                            <span class="option-letter">D)</span> Classe D (metais combustíveis)
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q12" id="q12e" class="option-input">
                         <label for="q12e" class="option-label">
-                            <span class="option-letter">E)</span> Metais inflamáveis.
+                            <span class="option-letter">E)</span> Classe K (óleos e gorduras de cozinha)
                         </label>
                     </li>
                 </ul>
                 <div class="feedback" id="feedback12">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">C alternativa <strong>A</strong> está correta: EPIRB significa Emergency
-                        Position Indicating Radio Beacon, um dispositivo de emergência que emite sinais de socorro.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(12, 'q12c')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(12)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 13 -->
             <div class="question-card" id="question13">
                 <div class="question-header">
                     <div class="question-number">13</div>
-                    <div class="question-text">Qual é a cor da luz de bombordo em uma embarcação?</div>
+                    <div class="question-text">Qual é a cor da luz de navegação correspondente ao bordo de bombordo (BB)?</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
@@ -945,7 +1017,7 @@
                     <li class="option-item">
                         <input type="radio" name="q13" id="q13b" class="option-input">
                         <label for="q13b" class="option-label">
-                            <span class="option-letter">B)</span> Encarnada
+                            <span class="option-letter">B)</span> Encarnada (vermelha)
                         </label>
                     </li>
                     <li class="option-item">
@@ -968,12 +1040,10 @@
                     </li>
                 </ul>
                 <div class="feedback" id="feedback13">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">B alternativa <strong>A</strong> está correta: A luz de estibordo (boreste)
-                        é verde.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(13, 'q13b')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(13)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 14 -->
@@ -1074,48 +1144,45 @@
             <div class="question-card" id="question16">
                 <div class="question-header">
                     <div class="question-number">16</div>
-                    <div class="question-text">Qual é a velocidade máxima permitida para embarcações em áreas de banho?
-                    </div>
+                    <div class="question-text">Quando duas embarcações a propulsão mecânica navegam em rumos diretamente opostos (roda a roda), com risco de colisão:</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
                         <input type="radio" name="q16" id="q16a" class="option-input">
                         <label for="q16a" class="option-label">
-                            <span class="option-letter">A)</span> 3 nós
+                            <span class="option-letter">A)</span> Ambas devem guinar para boreste (direita), passando bombordo com bombordo
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q16" id="q16b" class="option-input">
                         <label for="q16b" class="option-label">
-                            <span class="option-letter">B)</span> 5 nós
+                            <span class="option-letter">B)</span> Ambas devem guinar para bombordo (esquerda)
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q16" id="q16c" class="option-input">
                         <label for="q16c" class="option-label">
-                            <span class="option-letter">C)</span> 10 nós
+                            <span class="option-letter">C)</span> A maior embarcação tem preferência e a menor deve manobrar
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q16" id="q16d" class="option-input">
                         <label for="q16d" class="option-label">
-                            <span class="option-letter">D)</span> 15 nós
+                            <span class="option-letter">D)</span> A mais rápida deve reduzir a velocidade e manter o rumo
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q16" id="q16e" class="option-input">
                         <label for="q16e" class="option-label">
-                            <span class="option-letter">E)</span> 20 nós
+                            <span class="option-letter">E)</span> Ambas devem parar imediatamente suas máquinas
                         </label>
                     </li>
                 </ul>
                 <div class="feedback" id="feedback16">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">A alternativa <strong>A</strong> está correta: A velocidade máxima
-                        permitida em áreas de banho é de 3 nós.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(16, 'q16a')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(16)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 17 -->
@@ -1214,11 +1281,10 @@
             </div>
 
             <!-- Questão 19 -->
-            <div class="question-card" id="question19">
+           <div class="question-card" id="question19">
                 <div class="question-header">
                     <div class="question-number">19</div>
-                    <div class="question-text">Qual é o tempo mínimo de curso teórico exigido para a habilitação de
-                        Arrais Amador?</div>
+                    <div class="question-text">Qual é a carga horária mínima de treinamento prático embarcado exigida pela Autoridade Marítima para a habilitação de Arrais Amador?</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
@@ -1230,19 +1296,19 @@
                     <li class="option-item">
                         <input type="radio" name="q19" id="q19b" class="option-input">
                         <label for="q19b" class="option-label">
-                            <span class="option-letter">B)</span> 3 horas
+                            <span class="option-letter">B)</span> 4 horas
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q19" id="q19c" class="option-input">
                         <label for="q19c" class="option-label">
-                            <span class="option-letter">C)</span> 4 horas
+                            <span class="option-letter">C)</span> 10 horas
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q19" id="q19d" class="option-input">
                         <label for="q19d" class="option-label">
-                            <span class="option-letter">D)</span> 5 horas
+                            <span class="option-letter">D)</span> 15 horas
                         </label>
                     </li>
                     <li class="option-item">
@@ -1253,59 +1319,55 @@
                     </li>
                 </ul>
                 <div class="feedback" id="feedback19">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">A alternativa <strong>C</strong> está correta: O curso teórico para Arrais
-                        Amador deve ter no mínimo 40 horas.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(19, 'q19e')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(19)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 20 -->
             <div class="question-card" id="question20">
                 <div class="question-header">
                     <div class="question-number">20</div>
-                    <div class="question-text">Qual é a área de navegação permitida para o Arrais Amador?</div>
+                    <div class="question-text">Qual é o limite da área de navegação permitida para o condutor com habilitação de Arrais Amador?</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
                         <input type="radio" name="q20" id="q20a" class="option-input">
                         <label for="q20a" class="option-label">
-                            <span class="option-letter">A)</span> Águas interiores e costeiras, até 2 milhas da costa
+                            <span class="option-letter">A)</span> Mar aberto costeiro, até 5 milhas da costa
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q20" id="q20b" class="option-input">
                         <label for="q20b" class="option-label">
-                            <span class="option-letter">B)</span> Águas interiores e costeiras, até 5 milhas da costa
+                            <span class="option-letter">B)</span> Exclusivamente nos limites da Navegação Interior (rios, lagos, lagoas, baías e enseadas abrigadas)
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q20" id="q20c" class="option-input">
                         <label for="q20c" class="option-label">
-                            <span class="option-letter">C)</span> Águas interiores e costeiras, até 10 milhas da costa
+                            <span class="option-letter">C)</span> Mar aberto costeiro, até 20 milhas da costa
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q20" id="q20d" class="option-input">
                         <label for="q20d" class="option-label">
-                            <span class="option-letter">D)</span> Águas interiores e costeiras, até 20 milhas da costa
+                            <span class="option-letter">D)</span> Mar aberto sem qualquer limite de afastamento da costa
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q20" id="q20e" class="option-input">
                         <label for="q20e" class="option-label">
-                            <span class="option-letter">E)</span> Águas interiores e costeiras, sem limite de distância
+                            <span class="option-letter">E)</span> Apenas canais de portos organizados
                         </label>
                     </li>
                 </ul>
                 <div class="feedback" id="feedback20">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">A alternativa <strong>B</strong> está correta: O Arrais Amador pode navegar
-                        em águas interiores e costeiras, até 5 milhas da costa.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(20, 'q20b')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(20)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 21 -->
@@ -1407,47 +1469,45 @@
             <div class="question-card" id="question23">
                 <div class="question-header">
                     <div class="question-number">23</div>
-                    <div class="question-text">Qual é o significado da luz amarela em uma embarcação?</div>
+                    <div class="question-text">Uma embarcação classificada como de alto-mar, quando navegando em local de sua classe, só poderá ser conduzida por:</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
                         <input type="radio" name="q23" id="q23a" class="option-input">
                         <label for="q23a" class="option-label">
-                            <span class="option-letter">A)</span> Indica embarcação em operação de dragagem
+                            <span class="option-letter">A)</span> Veleiro.
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q23" id="q23b" class="option-input">
                         <label for="q23b" class="option-label">
-                            <span class="option-letter">B)</span> Indica embarcação em operação de pesca
+                            <span class="option-letter">B)</span> Capitão-Amador.
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q23" id="q23c" class="option-input">
                         <label for="q23c" class="option-label">
-                            <span class="option-letter">C)</span> Indica embarcação em operação de reboque
+                            <span class="option-letter">C)</span>  Marítimo profissional.
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q23" id="q23d" class="option-input">
                         <label for="q23d" class="option-label">
-                            <span class="option-letter">D)</span> Indica embarcação em operação de salvamento
+                            <span class="option-letter">D)</span> Arrais-amador.
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q23" id="q23e" class="option-input">
                         <label for="q23e" class="option-label">
-                            <span class="option-letter">E)</span> Indica embarcação em operação de patrulha
+                            <span class="option-letter">E)</span> Mestre-amador.
                         </label>
                     </li>
                 </ul>
                 <div class="feedback" id="feedback23">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">A alternativa <strong>A</strong> está correta: A luz amarela indica
-                        embarcação em operação de dragagem.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(23, 'q23a')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(23)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 24 -->
@@ -1692,50 +1752,48 @@
             </div>
 
             <!-- Questão 29 -->
-            <div class="question-card" id="question29">
+           <div class="question-card" id="question29">
                 <div class="question-header">
                     <div class="question-number">29</div>
-                    <div class="question-text">Qual é o significado da luz vermelha piscante em uma embarcação?</div>
+                    <div class="question-text">Em período noturno, uma embarcação exibindo duas luzes encarnadas dispostas em linha vertical onde melhor possam ser vistas indica:</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
                         <input type="radio" name="q29" id="q29a" class="option-input">
                         <label for="q29a" class="option-label">
-                            <span class="option-letter">A)</span> Indica embarcação em perigo
+                            <span class="option-letter">A)</span> Embarcação sem governo
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q29" id="q29b" class="option-input">
                         <label for="q29b" class="option-label">
-                            <span class="option-letter">B)</span> Indica embarcação engajada em pesca
+                            <span class="option-letter">B)</span> Embarcação engajada em pesca de arrasto
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q29" id="q29c" class="option-input">
                         <label for="q29c" class="option-label">
-                            <span class="option-letter">C)</span> Indica embarcação com capacidade de manobra restrita
+                            <span class="option-letter">C)</span> Embarcação fundeada
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q29" id="q29d" class="option-input">
                         <label for="q29d" class="option-label">
-                            <span class="option-letter">D)</span> Indica embarcação sem governo
+                            <span class="option-letter">D)</span> Embarcação com calado restrito
                         </label>
                     </li>
                     <li class="option-item">
                         <input type="radio" name="q29" id="q29e" class="option-input">
                         <label for="q29e" class="option-label">
-                            <span class="option-letter">E)</span> Indica embarcação em operação de dragagem
+                            <span class="option-letter">E)</span> Embarcação rebocando
                         </label>
                     </li>
                 </ul>
                 <div class="feedback" id="feedback29">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">A alternativa <strong>A</strong> está correta: A luz vermelha piscante
-                        indica que a embarcação está em perigo.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(29, 'q29a')">Confirmar Resposta <i
-                        class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(29)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 30 -->
@@ -1968,7 +2026,7 @@
             <div class="question-card" id="question35">
                 <div class="question-header">
                     <div class="question-number">35</div>
-                    <div class="question-text">A temperatura necessária para inflamar os gases que estejam se desprendendo de um combustível, só com a presença do comburente:</div>
+                    <div class="question-text">A temperatura mínima em que os gases desprendidos de um combustível entram em combustão apenas pelo contato com o comburente (oxigênio), sem necessidade de chama ou centelha externa, chama-se:</div>
                 </div>
                 <ul class="options-list">
                     <li class="option-item">
@@ -1986,7 +2044,7 @@
                     <li class="option-item">
                         <input type="radio" name="q35" id="q35c" class="option-input">
                         <label for="q35c" class="option-label">
-                            <span class="option-letter">C)</span> Ponto de fulgor  
+                            <span class="option-letter">C)</span> Ponto de fulgor
                         </label>
                     </li>
                     <li class="option-item">
@@ -1998,15 +2056,15 @@
                     <li class="option-item">
                         <input type="radio" name="q35" id="q35e" class="option-input">
                         <label for="q35e" class="option-label">
-                            <span class="option-letter">E)</span> Ponto ebulição
+                            <span class="option-letter">E)</span> Ponto de ebulição
                         </label>
                     </li>
                 </ul>
                 <div class="feedback" id="feedback35">
-                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta Correta</span></div>
-                    <p class="feedback-text">A alternativa <strong>D</strong> está correta: O ponto de ignição é a temperatura necessária para inflamar os gases.</p>
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> <span>Resposta</span></div>
+                    <p class="feedback-text"></p>
                 </div>
-                <button class="next-btn" onclick="checkAnswer(35, 'q35d')">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" onclick="checkAnswer(35)">Confirmar Resposta <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- Questão 36 -->
@@ -2254,223 +2312,244 @@
     </footer>
      <button class="toggle-dark" onclick="document.body.classList.toggle('dark-mode')"> 🌙 Dark Mode </button>
      <script>
-        // Variáveis globais
+// Variáveis globais de controle
 let currentQuestion = 1;
 let score = 0;
 const totalQuestions = 40;
 let questionsAnswered = 0;
 
-// Objeto com as respostas corretas
+// Gabarito corrigido e alinhado exatamente às questões do HTML
 const correctAnswers = {
-  1: 'q1a', 2: 'q2a', 3: 'q3a', 4: 'q4c', 5: 'q5b',
-  6: 'q6b', 7: 'q7b', 8: 'q8d', 9: 'q9b', 10: 'q10d',
-  11: 'q11d', 12: 'q12c', 13: 'q13b', 14: 'q14d', 15: 'q15d',
-  16: 'q16e', 17: 'q17d', 18: 'q18e', 19: 'q19e', 20: 'q20b',
-  21: 'q21b', 22: 'q22c', 23: 'q23d', 24: 'q24c', 25: 'q25a',
-  26: 'q26d', 27: 'q27a', 28: 'q28a', 29: 'q29c', 30: 'q30a',
-  31: 'q31b', 32: 'q32c', 33: 'q33a', 34: 'q34b', 35: 'q35d',
-  36: 'q36c', 37: 'q37e', 38: 'q38b', 39: 'q39c', 40: 'q40a'
+  1: 'q1a',   // Boreste: lado direito de quem olha da popa para a proa
+  2: 'q2a',   // Leme: controlar a direção da embarcação
+  3: 'q3a',   // DPC: Diretoria de Portos e Costas
+  4: 'q4a',   // Velocidade máx próxima à costa: 3 nós
+  5: 'q5a',   // Distância mín plataformas: 500 metros
+  6: 'q6a',   // Luz vermelha: bombordo
+  7: 'q7a',   // Equipamento obrigatório: coletes salva-vidas
+  8: 'q8a',   // NORMAM: Norma da Autoridade Marítima
+  9: 'q9b',   // Validade da CHA: 10 anos
+  10: 'q10b', // Idade mínima: 18 anos
+  11: 'q11a', // Âncora: manter parada em local específico
+  12: 'q12c', // Extintor de água: Classe A (sólidos fibrosos)
+  13: 'q13b', // Luz de bombordo: encarnada
+  14: 'q14b', // RLESTA: Regulamento da Lei de Segurança do Tráfego Aquaviário
+  15: 'q15a', // Colete: manter pessoa flutuando de cabeça para fora
+  16: 'q16a', // Roda a roda: ambas guinam para boreste
+  17: 'q17b', // Distância de pesqueiro com redes: 100 metros
+  18: 'q18a', // Luz branca na popa: luz de alcançado
+  19: 'q19e', // Carga horária prática obrigatória: 6 horas
+  20: 'q20b', // Área de navegação de Arrais: interior
+  21: 'q21a', // Registro e licença obrigatórios
+  22: 'q22a', // Bússola: direção da embarcação (rumo)
+  23: 'q23b', // Capitão Amador
+  24: 'q24a', // Extintor: princípios de incêndio
+  25: 'q25a', // RIPEAM: Reg. Int. Evitar Abalroamentos no Mar
+  26: 'q26a', // VHF: comunicação com estações e embarcações
+  27: 'q27a', // Canal de socorro/chamada: Canal 16 VHF
+  28: 'q28a', // GPS: posição da embarcação
+  29: 'q29a', // Duas luzes encarnadas verticais: embarcação sem governo
+  30: 'q30a', // Radar: detectar alvos e obstáculos
+  31: 'q31d', // Ações para evitar agravamento: Primeiros socorros
+  32: 'q32d', // Não ministrar água: quando inconsciente
+  33: 'q33e', // Balsa de águas abrigadas: Classe 3 (Classe III)
+  34: 'q34b', // Pré-respiração artificial: desobstruir vias aéreas superiores
+  35: 'q35d', // Sem chama externa apenas comburente: ponto de ignição
+  36: 'q36a', // Classe D: estrela amarela
+  37: 'q37d', // Incêndios classe A e B: espuma
+  38: 'q38d', // Menos de 16% O2: abafamento
+  39: 'q39c', // Atracação sotavento: paralelo com pouco segmento
+  40: 'q40d'  // Âncora arrastando no fundo: garrando
 };
 
-// Objeto com explicações das respostas
-const explanations = {
-  1: "A embarcação que vem a favor da corrente tem preferência e deve se posicionar no meio do rio, enquanto a outra deve manter-se à margem de boreste.",
-  2: "Embarcação com capacidade de manobra restrita é aquela que, pela natureza do trabalho que realiza, tem sua capacidade de manobrar limitada.",
-  3: "O balizamento dobrado é usado para indicar perigos isolados que ainda não foram registrados nas cartas náuticas oficiais.",
-  4: "O balizamento de perigo isolado possui listas horizontais pretas e encarnadas (vermelhas).",
-  5: "O sinal 'X' no balizamento indica que o navegante deve trocar de margem.",
-  6: "O balizamento de canal preferencial a bombordo emite luz encarnada (vermelha).",
-  7: "O balizamento terá cor verde com uma faixa horizontal encarnada, indicando que o canal principal está à direita (boreste) do sentido de navegação.",
-  8: "A temperatura da água não afeta diretamente as condições de manobra da embarcação.",
-  9: "A boia de aringue é utilizada para marcar a posição da âncora no fundo, facilitando sua localização e recuperação.",
-  10: "A abordagem em ângulo de 45° permite melhor controle da embarcação durante a atracação, com o leme para o lado oposto ao cais ajudando a aproximar a popa.",
-  11: "Baldes d'água podem ser usados como último recurso para apagar incêndios, desde que a parte elétrica esteja desligada e o tipo de incêndio permita o uso de água.",
-  12: "As combustões são classificadas em completa, incompleta, espontânea e explosão, conforme sua velocidade e características.",
-  13: "O extintor de água deve ser direcionado para a base das chamas, onde está o combustível, para ser mais eficaz no combate ao fogo.",
-  14: "Éter e benzina são exemplos de combustíveis voláteis, que evaporam facilmente a temperatura ambiente.",
-  15: "O aquecimento da vítima de hemorragia ajuda a prevenir o estado de choque, que pode ser causado pela perda significativa de sangue.",
-  16: "Quando não for possível aplicar o método boca a boca, pode-se ventilar os pulmões da vítima através do nariz (boca-nariz).",
-  17: "A falta de funcionamento dos intestinos em náufragos ocorre principalmente devido à escassez de alimentação.",
-  18: "Embarcações de alto-mar devem ser conduzidas por Capitão-Amador quando navegando em sua área de atuação.",
-  19: "O Termo de Responsabilidade é o documento onde o proprietário assume a responsabilidade pelas condições de operação da embarcação.",
-  20: "Embarcações de interior podem ser conduzidas por qualquer Arrais-Amador, independentemente da categoria específica.",
-  21: "A navegação em hidrovias interiores é classificada como navegação interior segundo a RLESTA.",
-  22: "O ordenamento do uso das praias compete aos municípios, conforme a legislação brasileira.",
-  23: "A aproximação deve ser feita perpendicular à linha base, com velocidade não superior a 3 nós, garantindo a segurança dos banhistas.",
-  24: "A reincidência em conduzir embarcação sob efeito de álcool ou drogas resulta no cancelamento do Certificado de Habilitação.",
-  25: "Essas embarcações podem trafegar a partir de 200 metros da linha base, conforme estabelecido na NORMAM-03.",
-  26: "A madeira é um exemplo de combustível que não contém comburente em sua estrutura molecular.",
-  27: "Combustíveis com comburente em sua estrutura molecular (como certos produtos químicos) só podem ser extintos por resfriamento.",
-  28: "Em caso de incêndio, a embarcação deve ser manobrada para posicionar as pessoas a barlavento (direção de onde vem o vento), evitando que a fumaça e chamas as atinjam.",
-  29: "O termo correto para a quantidade máxima de pessoas autorizadas a bordo, incluindo tripulação, é 'lotação'.",
-  30: "Água salgada não deve ser usada em incêndios classe C (elétricos) porque pode danificar os circuitos elétricos e piorar a situação, além do risco de choque elétrico.",
-  31: "Em previsão de mau tempo, deve-se aumentar o comprimento da amarra na água para melhorar a retenção da âncora e absorver melhor as forças do vento e ondas.",
-  32: "Em caso de parada cardíaca, deve-se iniciar imediatamente a ressuscitação cardiopulmonar (RCP) com respiração boca a boca e massagem cardíaca.",
-  33: "Deve-se trafegar e fundear em locais com menor tráfego e concentração de embarcações, conforme estabelecido na NORMAM-03 para garantir a segurança.",
-  34: "O comandante da embarcação é o responsável por manter a disciplina a bordo enquanto a embarcação está em movimento.",
-  35: "Pode-se improvisar uma tala com qualquer pedaço de material rígido (como madeira) e tiras de pano para imobilizar a fratura.",
-  36: "Dispositivos pirotécnicos e fumígenos são obrigatórios para embarcações de médio e grande porte em qualquer área de navegação.",
-  37: "As peças macias usadas para proteger o costado da embarcação contra o cais são chamadas de defensas.",
-  38: "A espuma química é o agente extintor mais efetivo para incêndios classe B (líquidos inflamáveis) e também pode ser usada em incêndios classe A (materiais sólidos).",
-  39: "A navegação em águas marítimas desabrigadas é classificada como navegação de mar aberto segundo a RLESTA.",
-  40: "A insolação ocorre por exposição prolongada ao sol e calor intenso, podendo causar desidratação e elevação da temperatura corporal."
-};
+// Configura os botões de avançar e encerrar dinamicamente em cada card
+function setupActionButtons() {
+  const cards = document.querySelectorAll('.question-card');
+  cards.forEach((card, index) => {
+    const qNum = index + 1;
+    const oldBtn = card.querySelector('.next-btn');
+    if (oldBtn) oldBtn.remove();
 
-// Função para adicionar botão de encerrar em cada questão
-function addEndButtons() {
-    const questionCards = document.querySelectorAll('.question-card');
-    questionCards.forEach(card => {
-        const endButton = document.createElement('button');
-        endButton.className = 'end-btn';
-        endButton.innerHTML = '<i class="fas fa-flag-checkered"></i> Encerrar Simulado';
-        endButton.onclick = function() { forceShowResults(); };
-        
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'button-container';
-        buttonContainer.style.display = 'flex';
-        buttonContainer.style.gap = '1rem';
-        buttonContainer.style.marginTop = '1.5rem';
-        buttonContainer.style.flexWrap = 'wrap';
-        
-        const nextBtn = card.querySelector('.next-btn');
-        card.insertBefore(buttonContainer, nextBtn.nextSibling);
-        buttonContainer.appendChild(nextBtn.cloneNode(true));
-        buttonContainer.appendChild(endButton);
-        
-        card.removeChild(nextBtn);
-    });
+    const existingContainer = card.querySelector('.button-container');
+    if (existingContainer) existingContainer.remove();
+
+    const container = document.createElement('div');
+    container.className = 'button-container';
+    container.style.display = 'flex';
+    container.style.gap = '1rem';
+    container.style.marginTop = '1.5rem';
+    container.style.flexWrap = 'wrap';
+
+    const actionBtn = document.createElement('button');
+    actionBtn.className = 'next-btn';
+    actionBtn.innerHTML = 'Confirmar Resposta <i class="fas fa-arrow-right"></i>';
+    actionBtn.onclick = function() { checkAnswer(qNum); };
+
+    const endBtn = document.createElement('button');
+    endBtn.className = 'end-btn';
+    endBtn.type = 'button';
+    endBtn.innerHTML = '<i class="fas fa-flag-checkered"></i> Encerrar Simulado';
+    endBtn.onclick = function() { forceShowResults(); };
+
+    container.appendChild(actionBtn);
+    container.appendChild(endBtn);
+    card.appendChild(container);
+  });
 }
 
-// Função para verificar a resposta
-function checkAnswer(questionNumber, correctAnswerId) {
+// Verifica a alternativa selecionada sem explicações
+function checkAnswer(questionNumber) {
   const selectedOption = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+  const card = document.getElementById(`question${questionNumber}`);
   const feedback = document.getElementById(`feedback${questionNumber}`);
-  
+  const actionBtn = card.querySelector('.next-btn');
+
   if (!selectedOption) {
     alert("Por favor, selecione uma resposta antes de continuar.");
     return;
   }
-  
+
+  // Trava as opções para não alterar após confirmar
+  card.querySelectorAll(`input[name="q${questionNumber}"]`).forEach(input => {
+    input.disabled = true;
+  });
+
   questionsAnswered++;
-  
+
   const selectedLetter = selectedOption.id.replace(`q${questionNumber}`, '').toUpperCase();
-  const correctLetter = correctAnswerId.replace(`q${questionNumber}`, '').toUpperCase();
-  
-  if (selectedOption.id === correctAnswerId) {
+  const correctId = correctAnswers[questionNumber];
+  const correctLetter = correctId.replace(`q${questionNumber}`, '').toUpperCase();
+
+  if (selectedOption.id === correctId) {
     feedback.className = "feedback correct";
     feedback.querySelector('.feedback-title').innerHTML = '<i class="fas fa-check-circle"></i> <span>Resposta Correta</span>';
-    feedback.querySelector('.feedback-text').innerHTML = `Alternativa <strong>${selectedLetter}</strong> está correta.`;
-    score++; // Esta linha incrementa o score quando acerta
+    feedback.querySelector('.feedback-text').innerHTML = `A alternativa <strong>${selectedLetter}</strong> está correta.`;
+    score++;
   } else {
     feedback.className = "feedback incorrect";
     feedback.querySelector('.feedback-title').innerHTML = '<i class="fas fa-times-circle"></i> <span>Resposta Incorreta</span>';
-    feedback.querySelector('.feedback-text').innerHTML = `Alternativa correta: <strong>${correctLetter}</strong>`;
+    feedback.querySelector('.feedback-text').innerHTML = `A alternativa correta é a <strong>${correctLetter}</strong>.`;
   }
-  
+
   feedback.style.display = "block";
-  updateProgress(); // Atualiza a barra de progresso imediatamente
-  
-  // Verifica se é a última questão para mostrar resultados finais
+  updateProgress();
+
   if (questionNumber === totalQuestions) {
-    showResults(true);
+    actionBtn.innerHTML = 'Ver Resultado Final <i class="fas fa-trophy"></i>';
+    actionBtn.onclick = function() { showResults(true); };
   } else {
-    document.querySelector(`#question${questionNumber} .next-btn`).textContent = "Próxima Questão";
-    document.querySelector(`#question${questionNumber} .next-btn`).onclick = function() { nextQuestion(); };
+    actionBtn.innerHTML = 'Próxima Questão <i class="fas fa-arrow-right"></i>';
+    actionBtn.onclick = function() { nextQuestion(); };
   }
 }
-    // Função para avançar para a próxima questão
-    function nextQuestion() {
-      document.getElementById(`question${currentQuestion}`).style.display = 'none';
-      document.getElementById(`question${currentQuestion}`).classList.remove('active');
-      currentQuestion++;
-      
-      if (currentQuestion <= totalQuestions) {
-        document.getElementById(`question${currentQuestion}`).style.display = 'block';
-        document.getElementById(`question${currentQuestion}`).classList.add('active');
-        updateProgress();
-      } else {
-        showResults(true);
-      }
-    }
-    
-    // Função para atualizar a barra de progresso
-    function updateProgress() {
-      const progress = (questionsAnswered / totalQuestions) * 100;
-      document.getElementById('progressBar').style.width = `${progress}%`;
-    }
-    
-    // Função para mostrar os resultados
+
+// Passa para a próxima questão
+function nextQuestion() {
+  const currentCard = document.getElementById(`question${currentQuestion}`);
+  if (currentCard) {
+    currentCard.style.display = 'none';
+    currentCard.classList.remove('active');
+  }
+
+  currentQuestion++;
+
+  if (currentQuestion <= totalQuestions) {
+    const nextCard = document.getElementById(`question${currentQuestion}`);
+    nextCard.style.display = 'block';
+    nextCard.classList.add('active');
+  } else {
+    showResults(true);
+  }
+}
+
+// Atualiza a barra de progresso
+function updateProgress() {
+  const progress = (questionsAnswered / totalQuestions) * 100;
+  document.getElementById('progressBar').style.width = `${progress}%`;
+}
+
+// Exibe a tela final com a pontuação calculada
 function showResults(final = false) {
   document.querySelectorAll('.question-card').forEach(card => {
     card.style.display = 'none';
   });
-  
-  document.getElementById('resultsContainer').style.display = 'block';
-  
+
+  const resultsContainer = document.getElementById('resultsContainer');
+  const finalScoreEl = document.getElementById('finalScore');
+  const resultMessageEl = document.getElementById('resultMessage');
+
+  resultsContainer.style.display = 'block';
+
+  const baseCalculo = final ? totalQuestions : (questionsAnswered || 1);
+  const percentage = Math.round((score / baseCalculo) * 100);
+
   if (final) {
-    document.getElementById('finalScore').textContent = `${score}/${totalQuestions}`;
-    document.getElementById('resultMessage').textContent = `Você completou todas as ${totalQuestions} questões e acertou ${score}.`;
+    finalScoreEl.textContent = `${score}/${totalQuestions}`;
   } else {
-    document.getElementById('finalScore').textContent = `${score}/${questionsAnswered}`;
-    document.getElementById('resultMessage').textContent = `Você respondeu ${questionsAnswered} questões e acertou ${score}.`;
+    finalScoreEl.textContent = `${score}/${questionsAnswered}`;
+  }
+
+  let mensagemDesempenho = "";
+  if (questionsAnswered === 0) {
+    mensagemDesempenho = "Você não respondeu nenhuma questão antes de encerrar.";
+  } else if (percentage >= 80) {
+    mensagemDesempenho = `Excelente aproveitamento (${percentage}%)! Você está apto para o exame da Capitania.`;
+  } else if (percentage >= 70) {
+    mensagemDesempenho = `Bom desempenho (${percentage}%)! Está acima do limite de aprovação (50%).`;
+  } else if (percentage >= 50) {
+    mensagemDesempenho = `Aproveitamento regular (${percentage}%). Vale a pena revisar os pontos que errou.`;
+  } else {
+    mensagemDesempenho = `Aproveitamento de ${percentage}%. Recomendamos estudar a NORMAM e o RIPEAM novamente antes da prova.`;
+  }
+
+  resultMessageEl.innerHTML = mensagemDesempenho;
+}
+
+// Encerramento antecipado
+function forceShowResults() {
+  if (confirm("Deseja realmente encerrar o simulado agora?")) {
+    showResults(false);
   }
 }
-  
-  if (questionsAnswered === 0) {
-    resultMessage.innerHTML += "Você não respondeu nenhuma questão.";
-  } else if (percentage >= 80) {
-    resultMessage.innerHTML += "Ótimo desempenho!";
-  } else if (percentage >= 70) {
-    resultMessage.innerHTML += "Bom desempenho!";
-  } else if (percentage >= 50) {
-    resultMessage.innerHTML += "Desempenho regular.";
-  } else {
-    resultMessage.innerHTML += "Recomendamos estudar mais.";
-  }
 
+// Reinicia o simulado por completo
+function restartSimulado() {
+  currentQuestion = 1;
+  score = 0;
+  questionsAnswered = 0;
 
-    // Função para forçar mostrar os resultados
-    function forceShowResults() {
-      showResults(false);
-    }
+  document.getElementById('resultsContainer').style.display = 'none';
 
-    // Função para reiniciar o simulado
-    function restartSimulado() {
-      currentQuestion = 1;
-      score = 0;
-      questionsAnswered = 0;
-      
-      document.getElementById('resultsContainer').style.display = 'none';
-      
-      document.querySelectorAll('.question-card').forEach((card, index) => {
-        card.style.display = index === 0 ? 'block' : 'none';
-        card.classList.remove('active');
-        card.querySelectorAll('input').forEach(input => {
-          input.checked = false;
-        });
-        const feedback = card.querySelector('.feedback');
-        if (feedback) feedback.style.display = 'none';
-        const nextBtn = card.querySelector('.next-btn');
-        if (nextBtn) {
-          nextBtn.textContent = 'Confirmar Resposta';
-          nextBtn.onclick = function() { checkAnswer(currentQuestion, correctAnswers[currentQuestion]); };
-        }
-      });
+  document.querySelectorAll('.question-card').forEach((card, index) => {
+    card.style.display = index === 0 ? 'block' : 'none';
+    card.classList.toggle('active', index === 0);
 
-      document.getElementById('question1').classList.add('active');
-      document.getElementById('progressBar').style.width = '0%';
-      document.getElementById('question1').style.display = 'block';
-    }
-    
-    // Inicialização
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.question-card:not(#question1)').forEach(card => {
-        card.style.display = 'none';
-      });
-      document.getElementById('question1').classList.add('active');
-      addEndButtons();
-      updateProgress();
+    card.querySelectorAll('input').forEach(input => {
+      input.checked = false;
+      input.disabled = false;
     });
+
+    const feedback = card.querySelector('.feedback');
+    if (feedback) {
+      feedback.style.display = 'none';
+      feedback.className = 'feedback';
+    }
+  });
+
+  setupActionButtons();
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Inicialização do documento
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.question-card').forEach((card, index) => {
+    card.style.display = index === 0 ? 'block' : 'none';
+  });
+  document.getElementById('question1').classList.add('active');
+  setupActionButtons();
+  updateProgress();
+});
 </script>
 </body>
 
