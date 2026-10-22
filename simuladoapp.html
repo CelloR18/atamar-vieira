@@ -20,10 +20,41 @@
   <link rel="stylesheet" href="simulados.css">
 
   <style>
+    /* --------------------------------------------------
+       VARIÁVEIS GLOBAIS & DESIGN SYSTEM NÁUTICO PREMIUM
+    -------------------------------------------------- */
+    :root {
+      --navy-950: #021226;
+      --navy-900: #072344;
+      --navy-800: #0d3566;
+      --navy-700: #154884;
+      --brass-gold: #e5b352;
+      --brass-glow: rgba(229, 179, 82, 0.25);
+      --marine-cyan: #48cae4;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --white: #ffffff;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      
+      --shadow-subtle: 0 4px 20px rgba(7, 35, 68, 0.06);
+      --shadow-hover: 0 16px 36px -10px rgba(7, 35, 68, 0.16), 0 0 0 1px rgba(229, 179, 82, 0.35);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     body.access-locked {
       overflow: hidden;
     }
 
+    /* --------------------------------------------------
+       TELA DE ACESSO / GATE RESTRITO
+    -------------------------------------------------- */
     .access-gate {
       position: fixed;
       inset: 0;
@@ -32,7 +63,7 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      background: linear-gradient(135deg, rgba(0, 32, 64, 0.98), rgba(0, 73, 120, 0.96));
+      background: radial-gradient(circle at 50% 20%, #0a305e 0%, var(--navy-950) 100%);
       font-family: 'Poppins', sans-serif;
     }
 
@@ -42,98 +73,366 @@
 
     .access-card {
       width: min(100%, 420px);
-      padding: 34px 28px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(16px);
-      color: #fff;
+      padding: 40px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
+      background: rgba(7, 35, 68, 0.65);
+      box-shadow: 0 30px 80px rgba(2, 18, 38, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      color: var(--white);
       text-align: center;
     }
 
     .access-icon {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 18px;
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 20px;
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.14);
-      font-size: 30px;
+      background: linear-gradient(135deg, rgba(229, 179, 82, 0.2), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(229, 179, 82, 0.3);
+      color: var(--brass-gold);
+      font-size: 28px;
+      box-shadow: 0 0 25px var(--brass-glow);
     }
 
     .access-card h1 {
       margin: 0 0 8px;
-      font-size: 1.7rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .access-card p {
-      margin: 0 0 22px;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 0.95rem;
+      margin: 0 0 24px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.92rem;
     }
 
     .password-field {
       position: relative;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .password-field input {
       width: 100%;
       height: 52px;
-      padding: 0 50px 0 16px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 14px;
+      padding: 0 48px 0 18px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius-md);
       outline: none;
-      background: rgba(255, 255, 255, 0.96);
-      color: #1a2b3c;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
       font: inherit;
       box-sizing: border-box;
+      transition: var(--transition);
+    }
+
+    .password-field input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
     }
 
     .password-field input:focus {
-      border-color: #7fd6ff;
-      box-shadow: 0 0 0 3px rgba(127, 214, 255, 0.2);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--brass-gold);
+      box-shadow: 0 0 0 4px var(--brass-glow);
     }
 
     .toggle-password {
       position: absolute;
-      right: 7px;
+      right: 6px;
       top: 50%;
       transform: translateY(-50%);
       width: 40px;
       height: 40px;
       border: 0;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       background: transparent;
-      color: #345;
+      color: rgba(255, 255, 255, 0.6);
       cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+
+    .toggle-password:hover {
+      color: var(--white);
     }
 
     .access-submit {
       width: 100%;
       height: 52px;
       border: 0;
-      border-radius: 14px;
-      background: #fff;
-      color: #003c66;
-      font: 700 1rem 'Poppins', sans-serif;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--brass-gold), #cca043);
+      color: var(--navy-950);
+      font: 700 0.98rem 'Poppins', sans-serif;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 24px rgba(229, 179, 82, 0.35);
+      transition: var(--transition);
     }
 
     .access-submit:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(229, 179, 82, 0.45);
     }
 
     .access-error {
       min-height: 22px;
-      margin-top: 12px !important;
+      margin-top: 14px !important;
       margin-bottom: 0 !important;
-      color: #ffd3d3 !important;
-      font-size: 0.88rem !important;
+      color: #ff9b9b !important;
+      font-size: 0.85rem !important;
+      font-weight: 500;
+    }
+
+    /* --------------------------------------------------
+       GRELHA & CARTÕES DE SIMULADO NÁUTICO REFORMULADOS
+    -------------------------------------------------- */
+    .simulados-section {
+      padding: 5rem 0;
+      background: #f8fafc;
+      position: relative;
+    }
+
+    .section-header h2 {
+      font-size: 2.1rem;
+      color: var(--navy-900);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+      color: var(--slate-700);
+      font-size: 1.05rem;
+      margin-top: 0.3rem;
+    }
+
+    .search-box {
+      max-width: 580px;
+      margin: 2.5rem auto 3.5rem;
+      position: relative;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--navy-800);
+      font-size: 1.1rem;
+      opacity: 0.6;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 56px;
+      padding: 0 20px 0 54px;
+      border: 1px solid rgba(13, 53, 102, 0.12);
+      border-radius: 50px;
+      background: var(--white);
+      color: var(--slate-900);
+      font: 500 0.98rem 'Poppins', sans-serif;
+      box-shadow: 0 4px 20px rgba(13, 53, 102, 0.05);
+      outline: none;
+      transition: var(--transition);
+      box-sizing: border-box;
+    }
+
+    .search-box input:focus {
+      border-color: var(--navy-800);
+      box-shadow: 0 8px 30px rgba(13, 53, 102, 0.12);
+    }
+
+    .simulados-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    /* Cartão Individual */
+    .simulado-card {
+      position: relative;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 26px 24px;
+      border: 1px solid rgba(13, 53, 102, 0.08);
+      box-shadow: var(--shadow-subtle);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    /* Linha náutica no topo do cartão */
+    .simulado-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy-800), var(--brass-gold));
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    /* Marca d'água de bússola de fundo sutil */
+    .simulado-card::after {
+      content: '\f14e';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: -15px;
+      bottom: -20px;
+      font-size: 110px;
+      color: rgba(7, 35, 68, 0.025);
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .simulado-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(229, 179, 82, 0.3);
+    }
+
+    .simulado-card:hover::before {
+      height: 6px;
+      opacity: 1;
+    }
+
+    .simulado-card:hover::after {
+      transform: rotate(20deg) scale(1.1);
+      color: rgba(7, 35, 68, 0.045);
+    }
+
+    /* Cabeçalho do Cartão */
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .simulado-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      color: var(--brass-gold);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      box-shadow: 0 6px 14px rgba(7, 35, 68, 0.15);
+      transition: var(--transition);
+    }
+
+    .simulado-card:hover .simulado-icon {
+      transform: scale(1.05);
+      background: var(--navy-950);
+      color: #ffcf70;
+    }
+
+    .card-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 50px;
+      background: rgba(40, 167, 69, 0.08);
+      color: #2b8a3e;
+      border: 1px solid rgba(40, 167, 69, 0.2);
+    }
+
+    /* Título do Cartão */
+    .simulado-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy-950);
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
+    }
+
+    /* Metadados / Informações */
+    .card-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px dashed var(--slate-200);
+    }
+
+    .card-info span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--slate-700);
+    }
+
+    .card-info span i {
+      color: var(--navy-700);
+      font-size: 0.95rem;
+    }
+
+    /* Botão de Ação do Cartão */
+    .btn-card {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 14px rgba(7, 35, 68, 0.12);
+      transition: var(--transition);
+    }
+
+    .btn-card:hover {
+      background: linear-gradient(180deg, var(--navy-700) 0%, var(--navy-800) 100%);
+      color: var(--brass-gold);
+      box-shadow: 0 8px 20px rgba(7, 35, 68, 0.22);
+      transform: translateY(-1px);
+    }
+
+    .btn-card::after {
+      content: '\f054';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .btn-card:hover::after {
+      transform: translateX(4px);
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      .simulados-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .simulados-section {
+        padding: 3.5rem 0;
+      }
+      
+      .section-header h2 {
+        font-size: 1.75rem;
+      }
     }
   </style>
 </head>
@@ -196,14 +495,12 @@
   </nav>
 
   <div class="hero-content">
-    
-
     <h1>
       Prepare-se para a prova da Marinha!
     </h1>
 
     <p>
-    Plataforma Simulados
+      Plataforma Simulados
     </p>
 
     <div class="hero-buttons">
@@ -217,7 +514,7 @@
         Instalar no Celular
       </button>
     </div>
-
+  </div>
 </header>
 
 <section class="simulados-section" id="simulados">
@@ -240,17 +537,13 @@
           <div class="simulado-icon">
             <i class="fas fa-ship"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #1</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado.html" class="btn-card">
           Iniciar Simulado
         </a>
@@ -261,17 +554,13 @@
           <div class="simulado-icon">
             <i class="fas fa-anchor"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #2</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado2.html" class="btn-card">
           Iniciar Simulado
         </a>
@@ -282,17 +571,13 @@
           <div class="simulado-icon">
             <i class="fas fa-compass"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #3</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado3.html" class="btn-card">
           Iniciar Simulado
         </a>
@@ -303,17 +588,13 @@
           <div class="simulado-icon">
             <i class="fas fa-water"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #4</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado4.html" class="btn-card">
           Iniciar Simulado
         </a>
@@ -324,17 +605,13 @@
           <div class="simulado-icon">
             <i class="fas fa-map"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #5</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado5.html" class="btn-card">
           Iniciar Simulado
         </a>
@@ -345,113 +622,88 @@
           <div class="simulado-icon">
             <i class="fas fa-life-ring"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #6</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado6.html" class="btn-card">
           Iniciar Simulado
         </a>
       </div>
 
-      <div class="simulado-card" data-name="Simulado 6">
+      <div class="simulado-card" data-name="Simulado 7">
         <div class="card-top">
           <div class="simulado-icon">
-            <i class="fas fa-life-ring"></i>
+            <i class="fas fa-dharmachakra"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #7</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado7.html" class="btn-card">
           Iniciar Simulado
         </a>
-
       </div>
 
-      <div class="simulado-card" data-name="Simulado 6">
+      <div class="simulado-card" data-name="Simulado 8">
         <div class="card-top">
           <div class="simulado-icon">
-            <i class="fas fa-life-ring"></i>
+            <i class="fas fa-sailboat"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #8</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado8.html" class="btn-card">
           Iniciar Simulado
         </a>
-
       </div>
 
-      <div class="simulado-card" data-name="Simulado 6">
+      <div class="simulado-card" data-name="Simulado 9">
         <div class="card-top">
           <div class="simulado-icon">
-            <i class="fas fa-life-ring"></i>
+            <i class="fas fa-ferry"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #9</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado9.html" class="btn-card">
           Iniciar Simulado
         </a>
-
       </div>
 
-      <div class="simulado-card" data-name="Simulado 6">
+      <div class="simulado-card" data-name="Simulado 10">
         <div class="card-top">
           <div class="simulado-icon">
-            <i class="fas fa-life-ring"></i>
+            <i class="fas fa-gauge-high"></i>
           </div>
-
           <div class="card-badge">ONLINE</div>
         </div>
-
         <h3>Simulado #10</h3>
-
         <div class="card-info">
           <span><i class="fas fa-question-circle"></i> 40 questões</span>
           <span><i class="fas fa-clock"></i> 60 min</span>
         </div>
-
         <a href="simulado10.html" class="btn-card">
           Iniciar Simulado
         </a>
-
       </div>
 
     </div>
   </div>
-  
 </section>
 
 <footer class="footer">
